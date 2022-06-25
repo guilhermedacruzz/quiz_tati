@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quiz_tati/question.dart';
 import 'repositoryQuestions.dart';
 
 void main() {
@@ -29,6 +30,9 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
+  final List<Question> questions = QuestionRepository().generate(5);
+  var currentQuestion = 0;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -36,18 +40,23 @@ class _BodyState extends State<Body> {
       child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          // ignore: prefer_const_literals_to_create_immutables
           children: [
-            const Text(
-              "Enuunciado",
+            Text(
+              questions[currentQuestion].text,
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),
             ),
-
             Divider(height: 30, thickness: 2, color: Colors.black26),
             const Text("hksdhd"),
+            ...questions[currentQuestion]
+                .allOptions
+                .map((option) => GestureDetector(
+                  onTap: () {
+                    print("Clicou");
+                  },
+                ))
           ],
         ),
       ),
