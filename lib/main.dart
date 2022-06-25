@@ -49,14 +49,40 @@ class _BodyState extends State<Body> {
               ),
             ),
             Divider(height: 30, thickness: 2, color: Colors.black26),
-            const Text("hksdhd"),
+
             ...questions[currentQuestion]
                 .allOptions
                 .map((option) => GestureDetector(
-                  onTap: () {
-                    print("Clicou");
-                  },
-                ))
+                      onTap: () {
+                        print("Clicou");
+                      },
+                      child: Container(
+                        child: Text(
+                          option,
+                          style: TextStyle(fontSize: 18),
+                        ),
+                        alignment: Alignment.center,
+                        width: double.infinity,
+                        height: 50,
+                        margin:
+                            EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                        decoration: BoxDecoration(
+                          color: Colors.grey[300],
+                          border: Border.all(
+                            color: Colors.white,
+                            width: 5,
+                          ),
+                          boxShadow: const [
+                            BoxShadow(
+                              color: Colors.black26,
+                              offset: Offset(0, 2),
+                              blurRadius: 5,
+                            )
+                          ],
+                          borderRadius: BorderRadius.circular(100),
+                        ),
+                      ),
+                    ))
           ],
         ),
       ),
