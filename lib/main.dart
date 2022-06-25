@@ -41,6 +41,7 @@ class _BodyState extends State<Body> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            
             Text(
               questions[currentQuestion].text,
               style: TextStyle(
@@ -48,6 +49,7 @@ class _BodyState extends State<Body> {
                 fontWeight: FontWeight.bold,
               ),
             ),
+
             Divider(height: 30, thickness: 2, color: Colors.black26),
 
             ...questions[currentQuestion]
