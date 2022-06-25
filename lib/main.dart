@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:quiz_tati/question.dart';
 import 'repositoryQuestions.dart';
+import 'dart:math';
 
 void main() {
   runApp(const MyApp());
@@ -41,7 +42,8 @@ class _BodyState extends State<Body> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            
+            Text("Pergunta: ${currentQuestion + 1}/${questions.length}"),
+            Divider(height: 30, thickness: 2, color: Colors.black26),
             Text(
               questions[currentQuestion].text,
               style: TextStyle(
@@ -49,14 +51,15 @@ class _BodyState extends State<Body> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-
             Divider(height: 30, thickness: 2, color: Colors.black26),
-
             ...questions[currentQuestion]
                 .allOptions
                 .map((option) => GestureDetector(
                       onTap: () {
-                        print("Clicou");
+                        setState(() {
+                          currentQuestion =
+                              min(currentQuestion + 1, questions.length - 1);
+                        });
                       },
                       child: Container(
                         child: Text(
@@ -84,7 +87,41 @@ class _BodyState extends State<Body> {
                           borderRadius: BorderRadius.circular(100),
                         ),
                       ),
-                    ))
+                    )),
+            Divider(height: 30, thickness: 2,),
+            GestureDetector(
+              onTap: () {
+                setState(() {
+                  currentQuestion =
+                      min(currentQuestion + 1, questions.length - 1);
+                });
+              },
+              child: Container(
+                child: Text(
+                  "Próxima",
+                  style: TextStyle(fontSize: 18),
+                ),
+                alignment: Alignment.center,
+                width: double.infinity,
+                height: 50,
+                margin: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                decoration: BoxDecoration(
+                  color: Colors.grey[300],
+                  border: Border.all(
+                    color: Colors.white,
+                    width: 5,
+                  ),
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Colors.black26,
+                      offset: Offset(0, 2),
+                      blurRadius: 5,
+                    )
+                  ],
+                  borderRadius: BorderRadius.circular(100),
+                ),
+              ),
+            ),
           ],
         ),
       ),
