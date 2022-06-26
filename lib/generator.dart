@@ -14,7 +14,7 @@ class GeneratorQuestions {
 
   Map generate() {
     return {
-      "text": generatePhase(8),
+      "text": generatePhase(17),
       "correct": generatePhase(3),
       "otherOptions": List.generate(3, (_) => generatePhase(3)),
     };

@@ -13,9 +13,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        fontFamily: "Poppins",
+      ),
       home: Scaffold(
         appBar: AppBar(
-          leading: const Icon(Icons.heart_broken),
+          leading: const Icon(Icons.sentiment_dissatisfied),
           title: const Text(
             "Título do App Quiz",
             style: TextStyle(
@@ -44,7 +48,7 @@ class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(left: 15, right: 15, top: 60, bottom: 15),
+      padding: const EdgeInsets.only(left: 15, right: 15, top: 60, bottom: 25),
       color: const Color(0xff2d3142),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -57,63 +61,82 @@ class _BodyState extends State<Body> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text("Quiz: ${currentQuestion + 1}"),
-                const Text("3:00 min"),
+                Row(
+                  children: const [
+                    Icon(
+                      Icons.timer,
+                      color: Color(0xffffffff),
+                    ),
+                    SizedBox(width: 5),
+                    Text("3:00 min"),
+                  ],
+                )
               ],
             ),
           ),
           const Divider(
-            height: 30,
+            height: 20,
             thickness: 2,
             color: Color(0xffffffff),
           ),
-          const SizedBox(height: 40),
+          const SizedBox(height: 35),
           Text(
             "${currentQuestion + 1}. ${questions[currentQuestion].text}?",
             style: const TextStyle(
               color: Color(0xffffffff),
+              fontSize: 16,
             ),
           ),
-          const SizedBox(height: 30),
-          ...questions[currentQuestion]
-              .allOptions
-              .map((option) => GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        currentQuestion =
-                            min(currentQuestion + 1, questions.length - 1);
-                      });
-                    },
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                      margin: const EdgeInsets.symmetric(
-                          horizontal: 0, vertical: 10),
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        color: const Color(0xffffff00),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Row(
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 10, horizontal: 13),
-                            decoration: BoxDecoration(
-                                color: const Color(0xffff00ff),
-                                borderRadius: BorderRadius.circular(100)),
-                            child: Text(
-                              String.fromCharCode(questions[currentQuestion]
-                                      .allOptions
-                                      .indexOf(option) +
-                                  65),
-                              style: const TextStyle(color: Color(0xffffffff)),
-                            ),
+          const SizedBox(height: 20),
+          ...questions[currentQuestion].allOptions.map((option) =>
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    currentQuestion =
+                        min(currentQuestion + 1, questions.length - 1);
+                  });
+                },
+                child: Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                  margin:
+                      const EdgeInsets.symmetric(horizontal: 0, vertical: 10),
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: const Color(0xffffffff),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Row(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 8, horizontal: 16),
+                        decoration: BoxDecoration(
+                            color: const Color(0xffff00ff),
+                            borderRadius: BorderRadius.circular(100)),
+                        child: Text(
+                          String.fromCharCode(questions[currentQuestion]
+                                  .allOptions
+                                  .indexOf(option) +
+                              65),
+                          style: const TextStyle(
+                            color: Color(0xffffffff),
+                            fontSize: 20,
                           ),
-                          const SizedBox(width: 40),
-                          Text(option),
-                        ],
+                        ),
                       ),
-                    ),
-                  )),
+                      const SizedBox(width: 40),
+                      Text(
+                        option,
+                        style: const TextStyle(
+                          color: Color(0xff4f5d75),
+                          fontSize: 14,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              )),
           const Spacer(),
           GestureDetector(
             onTap: () {
