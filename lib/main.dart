@@ -16,17 +16,22 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         fontFamily: "Poppins",
+        scaffoldBackgroundColor: const Color(0xff000000),
       ),
       home: Scaffold(
         appBar: AppBar(
-          leading: const Icon(Icons.sentiment_dissatisfied),
-          title: const Text(
-            "Título do App Quiz",
-            style: TextStyle(
-              color: Color(0xffffffff),
-            ),
+          title: const Text("Nome do Quiz 2"),
+          titleSpacing: 00.0,
+          centerTitle: true,
+          toolbarHeight: 60.2,
+          toolbarOpacity: 0.8,
+          elevation: 0.00,
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+                bottomRight: Radius.circular(25),
+                bottomLeft: Radius.circular(25)),
           ),
-          backgroundColor: const Color(0xff4f5d75),
+          backgroundColor: const Color(0xff14213d),
         ),
         body: Body(),
       ),
@@ -48,8 +53,7 @@ class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(left: 15, right: 15, top: 60, bottom: 25),
-      color: const Color(0xff2d3142),
+      padding: const EdgeInsets.only(left: 15, right: 15, top: 50, bottom: 25),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -112,8 +116,16 @@ class _BodyState extends State<Body> {
                         padding: const EdgeInsets.symmetric(
                             vertical: 8, horizontal: 16),
                         decoration: BoxDecoration(
-                            color: const Color(0xffff00ff),
-                            borderRadius: BorderRadius.circular(100)),
+                          color: const Color(0xfffca311),
+                          borderRadius: BorderRadius.circular(100),
+                          boxShadow: const [
+                            BoxShadow(
+                              color: Colors.black26,
+                              offset: Offset(0, 2),
+                              blurRadius: 5,
+                            ),
+                          ],
+                        ),
                         child: Text(
                           String.fromCharCode(questions[currentQuestion]
                                   .allOptions
@@ -129,7 +141,7 @@ class _BodyState extends State<Body> {
                       Text(
                         option,
                         style: const TextStyle(
-                          color: Color(0xff4f5d75),
+                          color: Color(0xff2b2d42),
                           fontSize: 14,
                         ),
                       ),
@@ -148,7 +160,7 @@ class _BodyState extends State<Body> {
             child: Container(
               padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
-                color: const Color(0xffff00ff),
+                color: const Color(0xfffca311),
                 borderRadius: BorderRadius.circular(10),
               ),
               child: const Center(
