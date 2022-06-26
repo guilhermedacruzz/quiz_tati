@@ -44,28 +44,36 @@ class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(10),
+      padding: const EdgeInsets.only(left: 15, right: 15, top: 60, bottom: 15),
       color: const Color(0xff2d3142),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                "Quiz: ${currentQuestion + 1}",
-              ),
-              Text("3:00 min"),
-            ],
+          DefaultTextStyle(
+            style: const TextStyle(
+              color: Color(0xffffffff),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text("Quiz: ${currentQuestion + 1}"),
+                const Text("3:00 min"),
+              ],
+            ),
           ),
           const Divider(
             height: 30,
             thickness: 2,
-            color: Colors.black26,
+            color: Color(0xffffffff),
           ),
+          const SizedBox(height: 40),
           Text(
-            "${currentQuestion + 1}- ${questions[currentQuestion].text}?",
+            "${currentQuestion + 1}. ${questions[currentQuestion].text}?",
+            style: const TextStyle(
+              color: Color(0xffffffff),
+            ),
           ),
+          const SizedBox(height: 30),
           ...questions[currentQuestion]
               .allOptions
               .map((option) => GestureDetector(
@@ -76,19 +84,37 @@ class _BodyState extends State<Body> {
                       });
                     },
                     child: Container(
-                      color: Colors.amberAccent,
+                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 0, vertical: 10),
                       width: double.infinity,
+                      decoration: BoxDecoration(
+                        color: const Color(0xffffff00),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
                       child: Row(
                         children: [
-                          Text(String.fromCharCode(questions[currentQuestion]
-                                  .allOptions
-                                  .indexOf(option) +
-                              65)),
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 10, horizontal: 13),
+                            decoration: BoxDecoration(
+                                color: const Color(0xffff00ff),
+                                borderRadius: BorderRadius.circular(100)),
+                            child: Text(
+                              String.fromCharCode(questions[currentQuestion]
+                                      .allOptions
+                                      .indexOf(option) +
+                                  65),
+                              style: const TextStyle(color: Color(0xffffffff)),
+                            ),
+                          ),
+                          const SizedBox(width: 40),
                           Text(option),
                         ],
                       ),
                     ),
                   )),
+          const Spacer(),
           GestureDetector(
             onTap: () {
               setState(() {
@@ -96,8 +122,20 @@ class _BodyState extends State<Body> {
                     min(currentQuestion + 1, questions.length - 1);
               });
             },
-            child: Center(
-              child: Text("next"),
+            child: Container(
+              padding: const EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                color: const Color(0xffff00ff),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: const Center(
+                child: Text(
+                  "NEXT",
+                  style: TextStyle(
+                    color: Color(0xffffffff),
+                  ),
+                ),
+              ),
             ),
           ),
         ],
