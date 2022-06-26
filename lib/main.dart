@@ -53,7 +53,7 @@ class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(left: 15, right: 15, top: 50, bottom: 25),
+      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 25),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -84,7 +84,7 @@ class _BodyState extends State<Body> {
             thickness: 2,
             color: Color(0xffffffff),
           ),
-          const SizedBox(height: 35),
+          const SizedBox(height: 30),
           Text(
             "${currentQuestion + 1}.  ${questions[currentQuestion].text}?",
             style: const TextStyle(
@@ -92,7 +92,7 @@ class _BodyState extends State<Body> {
               fontSize: 16,
             ),
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 15),
           ...questions[currentQuestion].allOptions.map((option) =>
               GestureDetector(
                 onTap: () {
@@ -105,7 +105,7 @@ class _BodyState extends State<Body> {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
                   margin:
-                      const EdgeInsets.symmetric(horizontal: 0, vertical: 10),
+                      const EdgeInsets.symmetric(horizontal: 0, vertical: 8),
                   width: double.infinity,
                   decoration: BoxDecoration(
                     color: const Color(0xffffffff),
