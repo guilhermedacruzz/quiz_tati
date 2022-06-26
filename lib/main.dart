@@ -15,7 +15,14 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text("Título do App Quiz"),
+          leading: const Icon(Icons.heart_broken),
+          title: const Text(
+            "Título do App Quiz",
+            style: TextStyle(
+              color: Color(0xffffffff),
+            ),
+          ),
+          backgroundColor: const Color(0xff4f5d75),
         ),
         body: Body(),
       ),
@@ -37,93 +44,63 @@ class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.blueAccent,
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text("Pergunta: ${currentQuestion + 1}/${questions.length}"),
-            Divider(height: 30, thickness: 2, color: Colors.black26),
-            Text(
-              questions[currentQuestion].text,
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
+      padding: const EdgeInsets.all(10),
+      color: const Color(0xff2d3142),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "Quiz: ${currentQuestion + 1}",
               ),
-            ),
-            Divider(height: 30, thickness: 2, color: Colors.black26),
-            ...questions[currentQuestion]
-                .allOptions
-                .map((option) => GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          currentQuestion =
-                              min(currentQuestion + 1, questions.length - 1);
-                        });
-                      },
-                      child: Container(
-                        child: Text(
-                          option,
-                          style: TextStyle(fontSize: 18),
-                        ),
-                        alignment: Alignment.center,
-                        width: double.infinity,
-                        height: 50,
-                        margin:
-                            EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                        decoration: BoxDecoration(
-                          color: Colors.grey[300],
-                          border: Border.all(
-                            color: Colors.white,
-                            width: 5,
-                          ),
-                          boxShadow: const [
-                            BoxShadow(
-                              color: Colors.black26,
-                              offset: Offset(0, 2),
-                              blurRadius: 5,
-                            )
-                          ],
-                          borderRadius: BorderRadius.circular(100),
-                        ),
+              Text("3:00 min"),
+            ],
+          ),
+          const Divider(
+            height: 30,
+            thickness: 2,
+            color: Colors.black26,
+          ),
+          Text(
+            "${currentQuestion + 1}- ${questions[currentQuestion].text}?",
+          ),
+          ...questions[currentQuestion]
+              .allOptions
+              .map((option) => GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        currentQuestion =
+                            min(currentQuestion + 1, questions.length - 1);
+                      });
+                    },
+                    child: Container(
+                      color: Colors.amberAccent,
+                      width: double.infinity,
+                      child: Row(
+                        children: [
+                          Text(String.fromCharCode(questions[currentQuestion]
+                                  .allOptions
+                                  .indexOf(option) +
+                              65)),
+                          Text(option),
+                        ],
                       ),
-                    )),
-            Divider(height: 30, thickness: 2,),
-            GestureDetector(
-              onTap: () {
-                setState(() {
-                  currentQuestion =
-                      min(currentQuestion + 1, questions.length - 1);
-                });
-              },
-              child: Container(
-                child: Text(
-                  "Próxima",
-                  style: TextStyle(fontSize: 18),
-                ),
-                alignment: Alignment.center,
-                width: double.infinity,
-                height: 50,
-                margin: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                decoration: BoxDecoration(
-                  color: Colors.grey[300],
-                  border: Border.all(
-                    color: Colors.white,
-                    width: 5,
-                  ),
-                  boxShadow: const [
-                    BoxShadow(
-                      color: Colors.black26,
-                      offset: Offset(0, 2),
-                      blurRadius: 5,
-                    )
-                  ],
-                  borderRadius: BorderRadius.circular(100),
-                ),
-              ),
+                    ),
+                  )),
+          GestureDetector(
+            onTap: () {
+              setState(() {
+                currentQuestion =
+                    min(currentQuestion + 1, questions.length - 1);
+              });
+            },
+            child: Center(
+              child: Text("next"),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
