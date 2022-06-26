@@ -60,6 +60,7 @@ class _BodyState extends State<Body> {
           DefaultTextStyle(
             style: const TextStyle(
               color: Color(0xffffffff),
+              fontSize: 18,
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -85,7 +86,7 @@ class _BodyState extends State<Body> {
           ),
           const SizedBox(height: 35),
           Text(
-            "${currentQuestion + 1}. ${questions[currentQuestion].text}?",
+            "${currentQuestion + 1}.  ${questions[currentQuestion].text}?",
             style: const TextStyle(
               color: Color(0xffffffff),
               fontSize: 16,
@@ -165,7 +166,7 @@ class _BodyState extends State<Body> {
               ),
               child: const Center(
                 child: Text(
-                  "NEXT",
+                  "PRÓXIMA",
                   style: TextStyle(
                     color: Color(0xffffffff),
                   ),

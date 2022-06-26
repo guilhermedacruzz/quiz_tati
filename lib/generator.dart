@@ -8,9 +8,10 @@ class GeneratorQuestions {
 
   String generateWord() {
     var random = Random();
-    var wordInt = List.generate(random.nextInt(5) + 3, (_) => random.nextInt(25) + 97);
+    var wordInt =
+        List.generate(random.nextInt(5) + 3, (_) => random.nextInt(25) + 97);
     return String.fromCharCodes(wordInt);
-  } 
+  }
 
   Map generate() {
     return {

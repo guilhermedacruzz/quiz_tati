@@ -9,14 +9,13 @@ class QuestionRepository {
       Map dataQuestion = GeneratorQuestions().generate();
 
       var question = Question(
-        text: dataQuestion["text"], 
-        correct: dataQuestion["correct"], 
-        allOptions: [
-          ...dataQuestion["otherOptions"],
-          dataQuestion["correct"]
-          ]..shuffle()
-      );
-      
+          text: dataQuestion["text"],
+          correct: dataQuestion["correct"],
+          allOptions: [
+            ...dataQuestion["otherOptions"], 
+            dataQuestion["correct"]]
+          ..shuffle());
+
       questions.add(question);
     }
 
