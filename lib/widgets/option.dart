@@ -60,7 +60,7 @@ class OptionSelected extends StatelessWidget {
         Text(
           option,
           style: const TextStyle(
-            color: Color(0xff2b2d42),
+            color: Color(0xffffffff),
             fontSize: 14,
           ),
         ),
@@ -80,8 +80,8 @@ class OptionSelected extends StatelessWidget {
           ),
           child: Text(
             isCorrect ? "V" : "X",
-            style: const TextStyle(
-              color: Color(0xfffca311),
+            style: TextStyle(
+              color: isCorrect ? const Color(0xff588157): const Color(0xffe63946), 
               fontSize: 20,
             ),
           ),
@@ -118,7 +118,7 @@ class Option extends StatelessWidget {
         margin: const EdgeInsets.symmetric(horizontal: 0, vertical: 8),
         width: double.infinity,
         decoration: BoxDecoration(
-          color: isSelected ? const Color(0xfffca311) : const Color(0xffffffff),
+          color: isSelected ? isCorrect ? const Color(0xff588157) : const Color(0xffe63946):const Color(0xffffffff),
           borderRadius: BorderRadius.circular(10),
         ),
         child: isSelected

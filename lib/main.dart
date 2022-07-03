@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quiz_tati/models/question.dart';
+import 'package:quiz_tati/pages/resultPage.dart';
 import 'package:quiz_tati/widgets/buttonNext.dart';
 import 'package:quiz_tati/widgets/option.dart';
 import 'package:quiz_tati/widgets/quizBar.dart';
@@ -58,83 +59,88 @@ class _BodyState extends State<Body> {
   final List<Question> questions = QuestionRepository().generate(3);
   var currentQuestion = 0;
   StatusQuestion statusQuestion = StatusQuestion.wainting;
-  StatusQuiz statusQuiz = StatusQuiz.running;
+  StatusQuiz statusQuiz = StatusQuiz.result;
   String optionSelected = "";
-
-  Map results = {
-    "hits":0,
-    "mistakes":0
-  };
+  int hits = 0;
+  int mistakes = 0;
 
   void selectQuestion(String option) {
     if (statusQuestion == StatusQuestion.wainting) {
       setState(() {
         optionSelected = option;
         statusQuestion = StatusQuestion.answered;
-        if(optionSelected == questions[currentQuestion].correct) {
-          results["hits"] += 1;
+        if (optionSelected == questions[currentQuestion].correct) {
+          hits += 1;
+        } else {
+          mistakes += 1;
         }
-        else {
-          results["mistakes"] += 1;
+        if (currentQuestion == questions.length - 1) {
+          statusQuiz = StatusQuiz.complet;
         }
       });
     }
   }
 
   void nextQuestion() {
-    if (statusQuiz == StatusQuiz.complet) {
-      setState(() {
-        statusQuiz = StatusQuiz.result;
-      });
-    } else {
-      setState(() {
-        currentQuestion = min(currentQuestion + 1, questions.length - 1);
-        if (currentQuestion == questions.length - 1) {
-          statusQuiz = StatusQuiz.complet;
-        }
-        statusQuestion = StatusQuestion.wainting;
-      });
+    if (statusQuestion == StatusQuestion.answered) {
+      if (statusQuiz == StatusQuiz.complet) {
+        setState(() {
+          statusQuiz = StatusQuiz.result;
+        });
+      } else {
+        setState(() {
+          currentQuestion = min(currentQuestion + 1, questions.length - 1);
+          statusQuestion = StatusQuestion.wainting;
+        });
+      }
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 25),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          QuizBar(
-            current: currentQuestion + 1,
-            max: questions.length,
-            hits: results["hits"],
-            mistakes: results["mistakes"],
-          ),
-          const Divider(
-            height: 20,
-            thickness: 2,
-            color: Color(0xffffffff),
-          ),
-          const SizedBox(height: 30),
-          TextQuestion(
-            text: questions[currentQuestion].text,
-            index: currentQuestion + 1,
-          ),
-          const SizedBox(height: 15),
-          ...questions[currentQuestion].allOptions.map((option) => Option(
-              option: option,
-              isSelected: option == optionSelected,
-              isCorrect: option == questions[currentQuestion].correct,    
-              selectQuestion: selectQuestion,
-              index: String.fromCharCode(
-                  questions[currentQuestion].allOptions.indexOf(option) + 65))),
-          const Spacer(),
-          ButtonNext(
-            nextQuestion: nextQuestion,
-            isComplet: statusQuiz == StatusQuiz.complet,
-          ),
-        ],
-      ),
-    );
+    return statusQuiz == StatusQuiz.result
+        ? ResultPage(
+            hits: hits,
+            mistakes: mistakes,
+          )
+        : Container(
+            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 25),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                QuizBar(
+                  current: currentQuestion + 1,
+                  max: questions.length,
+                  hits: hits,
+                  mistakes: mistakes,
+                ),
+                const Divider(
+                  height: 20,
+                  thickness: 2,
+                  color: Color(0xffffffff),
+                ),
+                const SizedBox(height: 30),
+                TextQuestion(
+                  text: questions[currentQuestion].text,
+                  index: currentQuestion + 1,
+                ),
+                const SizedBox(height: 15),
+                ...questions[currentQuestion].allOptions.map((option) => Option(
+                    option: option,
+                    isSelected: option == optionSelected,
+                    isCorrect: option == questions[currentQuestion].correct,
+                    selectQuestion: selectQuestion,
+                    index: String.fromCharCode(
+                        questions[currentQuestion].allOptions.indexOf(option) +
+                            65))),
+                const Spacer(),
+                ButtonNext(
+                  nextQuestion: nextQuestion,
+                  isComplet: statusQuiz == StatusQuiz.complet,
+                  isAnswered: statusQuestion == StatusQuestion.answered,
+                ),
+              ],
+            ),
+          );
   }
 }
