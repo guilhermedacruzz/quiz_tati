@@ -46,9 +46,41 @@ class Body extends StatefulWidget {
   State<Body> createState() => _BodyState();
 }
 
+enum StatusQuestion { wainting, answered }
+
+enum StatusQuiz { running, complet, result }
+
 class _BodyState extends State<Body> {
   final List<Question> questions = QuestionRepository().generate(3);
   var currentQuestion = 0;
+  StatusQuestion statusQuestion = StatusQuestion.wainting;
+  StatusQuiz statusQuiz = StatusQuiz.running;
+  String optionSelected = "";
+
+  void selectQuestion(String option) {
+    if (statusQuestion == StatusQuestion.wainting) {
+      setState(() {
+        optionSelected = option;
+        statusQuestion = StatusQuestion.answered;
+      });
+    }
+  }
+
+  void nextQuestion() {
+    if (statusQuiz == StatusQuiz.complet) {
+      setState(() {
+        statusQuiz = StatusQuiz.result;
+      });
+    } else {
+      setState(() {
+        currentQuestion = min(currentQuestion + 1, questions.length - 1);
+        if (currentQuestion == questions.length - 1) {
+          statusQuiz = StatusQuiz.complet;
+        }
+        statusQuestion = StatusQuestion.wainting;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -96,10 +128,7 @@ class _BodyState extends State<Body> {
           ...questions[currentQuestion].allOptions.map((option) =>
               GestureDetector(
                 onTap: () {
-                  setState(() {
-                    currentQuestion =
-                        min(currentQuestion + 1, questions.length - 1);
-                  });
+                  selectQuestion(option);
                 },
                 child: Container(
                   padding:
@@ -153,10 +182,7 @@ class _BodyState extends State<Body> {
           const Spacer(),
           GestureDetector(
             onTap: () {
-              setState(() {
-                currentQuestion =
-                    min(currentQuestion + 1, questions.length - 1);
-              });
+              nextQuestion();
             },
             child: Container(
               padding: const EdgeInsets.all(20),
@@ -164,10 +190,10 @@ class _BodyState extends State<Body> {
                 color: const Color(0xfffca311),
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: const Center(
+              child: Center(
                 child: Text(
-                  "PRÓXIMA",
-                  style: TextStyle(
+                  statusQuiz == StatusQuiz.complet ? "COMPLETO" : "PRÓXIMA",
+                  style: const TextStyle(
                     color: Color(0xffffffff),
                   ),
                 ),
