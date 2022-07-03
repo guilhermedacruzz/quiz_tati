@@ -2,17 +2,38 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:quiz_tati/main.dart';
 
-class ResultPage extends StatelessWidget {
+class ResultPage extends StatefulWidget {
   final int hits;
   final int mistakes;
   final Function resetQuiz;
+  final String asset;
 
   const ResultPage(
       {Key? key,
       required this.hits,
       required this.mistakes,
-      required this.resetQuiz})
+      required this.resetQuiz,
+      required this.asset})
       : super(key: key);
+
+  @override
+  State<ResultPage> createState() => _ResultPageState();
+}
+
+class _ResultPageState extends State<ResultPage> {
+  late AssetImage image;
+
+  @override
+  void initState() {
+    super.initState();
+    image = AssetImage(widget.asset);
+  }
+
+  @override
+  void dispose() {
+    image.evict();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,10 +44,10 @@ class ResultPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Image.asset(
-              "assets/images/anime.gif",
-              height: 250.0,
-              width: 250.0,
+            Image(
+              image: image,
+              height: 250,
+              width: 250,
             ),
             const Text("Parabéns!",
                 style: TextStyle(
@@ -41,14 +62,14 @@ class ResultPage extends StatelessWidget {
               child: Column(
                 children: [
                   const Text("Seu Recorde"),
-                  Text("$hits / ${hits + mistakes}")
+                  Text("${widget.hits} / ${widget.hits + widget.mistakes}")
                 ],
               ),
             ),
             const SizedBox(height: 30),
             GestureDetector(
               onTap: () {
-                resetQuiz();
+                widget.resetQuiz();
               },
               child: Container(
                 padding: const EdgeInsets.all(20),
@@ -77,4 +98,3 @@ class ResultPage extends StatelessWidget {
     );
   }
 }
-

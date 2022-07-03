@@ -115,6 +115,7 @@ class _BodyState extends State<Body> {
             hits: hits,
             mistakes: mistakes,
             resetQuiz: resetQuiz,
+            asset: "assets/images/anime.gif",
           )
         : Container(
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 25),
