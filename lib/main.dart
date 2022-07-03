@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:quiz_tati/models/question.dart';
+import 'package:quiz_tati/widgets/buttonNext.dart';
 import 'package:quiz_tati/widgets/option.dart';
+import 'package:quiz_tati/widgets/quizBar.dart';
+import 'package:quiz_tati/widgets/textQuestion.dart';
 import 'repository/repositoryQuestions.dart';
 import 'dart:math';
 
@@ -90,27 +93,9 @@ class _BodyState extends State<Body> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          DefaultTextStyle(
-            style: const TextStyle(
-              color: Color(0xffffffff),
-              fontSize: 18,
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text("Quiz: ${currentQuestion + 1} / ${questions.length}"),
-                Row(
-                  children: const [
-                    Icon(
-                      Icons.timer,
-                      color: Color(0xffffffff),
-                    ),
-                    SizedBox(width: 5),
-                    Text("3:00 min"),
-                  ],
-                )
-              ],
-            ),
+          QuizBar(
+            current: currentQuestion + 1,
+            max: questions.length,
           ),
           const Divider(
             height: 20,
@@ -118,12 +103,9 @@ class _BodyState extends State<Body> {
             color: Color(0xffffffff),
           ),
           const SizedBox(height: 30),
-          Text(
-            "${currentQuestion + 1}.  ${questions[currentQuestion].text}?",
-            style: const TextStyle(
-              color: Color(0xffffffff),
-              fontSize: 16,
-            ),
+          TextQuestion(
+            text: questions[currentQuestion].text,
+            index: currentQuestion + 1,
           ),
           const SizedBox(height: 15),
           ...questions[currentQuestion].allOptions.map((option) => Option(
@@ -134,25 +116,9 @@ class _BodyState extends State<Body> {
               index: String.fromCharCode(
                   questions[currentQuestion].allOptions.indexOf(option) + 65))),
           const Spacer(),
-          GestureDetector(
-            onTap: () {
-              nextQuestion();
-            },
-            child: Container(
-              padding: const EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                color: const Color(0xfffca311),
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Center(
-                child: Text(
-                  statusQuiz == StatusQuiz.complet ? "COMPLETO" : "PRÓXIMA",
-                  style: const TextStyle(
-                    color: Color(0xffffffff),
-                  ),
-                ),
-              ),
-            ),
+          ButtonNext(
+            nextQuestion: nextQuestion,
+            isComplet: statusQuiz == StatusQuiz.complet,
           ),
         ],
       ),
