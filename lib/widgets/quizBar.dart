@@ -4,8 +4,10 @@ class QuizBar extends StatelessWidget {
   final DateTime now = DateTime.now();
   final int current;
   final int max;
+  final int hits;
+  final int mistakes;
 
-  QuizBar({Key? key, required this.current, required this.max})
+  QuizBar({Key? key, required this.current, required this.max, required this.hits, required this.mistakes })
       : super(key: key);
 
   @override
@@ -22,12 +24,20 @@ class QuizBar extends StatelessWidget {
           Row(
             children: [
               const Icon(
-                Icons.timer,
+                Icons.done,
                 color: Color(0xffffffff),
               ),
               const SizedBox(width: 5),
               Text(
-                '${now.hour}:${now.minute}:${now.second}',
+                '$hits',
+              ),
+              const Icon(
+                Icons.close,
+                color: Color(0xffffffff),
+              ),
+              const SizedBox(width: 5),
+              Text(
+                '$mistakes',
               ),
             ],
           )

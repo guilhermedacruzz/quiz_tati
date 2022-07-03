@@ -4,10 +4,7 @@ class OptionNormal extends StatelessWidget {
   final String option;
   final String index;
 
-  const OptionNormal(
-      {Key? key,
-      required this.option,
-      required this.index})
+  const OptionNormal({Key? key, required this.option, required this.index})
       : super(key: key);
 
   @override
@@ -52,7 +49,9 @@ class OptionSelected extends StatelessWidget {
   final String option;
   final bool isCorrect;
 
-  const OptionSelected({Key? key, required this.option, required this.isCorrect }) : super(key: key);
+  const OptionSelected(
+      {Key? key, required this.option, required this.isCorrect})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -80,7 +79,7 @@ class OptionSelected extends StatelessWidget {
             ],
           ),
           child: Text(
-            isCorrect ? "X":"V",
+            isCorrect ? "V" : "X",
             style: const TextStyle(
               color: Color(0xfffca311),
               fontSize: 20,
@@ -119,10 +118,12 @@ class Option extends StatelessWidget {
         margin: const EdgeInsets.symmetric(horizontal: 0, vertical: 8),
         width: double.infinity,
         decoration: BoxDecoration(
-          color: isSelected ?const Color(0xfffca311):const Color(0xffffffff),
+          color: isSelected ? const Color(0xfffca311) : const Color(0xffffffff),
           borderRadius: BorderRadius.circular(10),
         ),
-        child: isSelected ? OptionSelected(option: option, isCorrect: isCorrect):OptionNormal(option: option, index: index)
+        child: isSelected
+            ? OptionSelected(option: option, isCorrect: isCorrect)
+            : OptionNormal(option: option, index: index),
       ),
     );
   }

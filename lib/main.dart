@@ -61,11 +61,22 @@ class _BodyState extends State<Body> {
   StatusQuiz statusQuiz = StatusQuiz.running;
   String optionSelected = "";
 
+  Map results = {
+    "hits":0,
+    "mistakes":0
+  };
+
   void selectQuestion(String option) {
     if (statusQuestion == StatusQuestion.wainting) {
       setState(() {
         optionSelected = option;
         statusQuestion = StatusQuestion.answered;
+        if(optionSelected == questions[currentQuestion].correct) {
+          results["hits"] += 1;
+        }
+        else {
+          results["mistakes"] += 1;
+        }
       });
     }
   }
@@ -96,6 +107,8 @@ class _BodyState extends State<Body> {
           QuizBar(
             current: currentQuestion + 1,
             max: questions.length,
+            hits: results["hits"],
+            mistakes: results["mistakes"],
           ),
           const Divider(
             height: 20,
