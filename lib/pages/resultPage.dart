@@ -28,6 +28,11 @@ class ResultPage extends StatelessWidget {
               height: 250.0,
               width: 250.0,
             ),
+            const Text("Parabéns!",
+                style: TextStyle(
+                  color: Color(0xfffca311),
+                  fontSize: 32,
+                )),
             DefaultTextStyle(
               style: const TextStyle(
                 color: Color(0xffffffff),
@@ -72,3 +77,4 @@ class ResultPage extends StatelessWidget {
     );
   }
 }
+
