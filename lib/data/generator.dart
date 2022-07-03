@@ -1,5 +1,5 @@
 import 'dart:math';
-import "string_extension.dart";
+import '../widgets/string_extension.dart';
 
 class GeneratorQuestions {
   String generatePhase(int space) {

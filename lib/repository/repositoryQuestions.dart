@@ -1,5 +1,5 @@
-import 'question.dart';
-import 'generator.dart';
+import '../models/question.dart';
+import '../data/generator.dart';
 
 class QuestionRepository {
   List<Question> generate(int qtde) {

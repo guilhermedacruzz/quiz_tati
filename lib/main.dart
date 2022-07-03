@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:quiz_tati/question.dart';
-import 'repositoryQuestions.dart';
+import 'package:quiz_tati/models/question.dart';
+import 'package:quiz_tati/widgets/option.dart';
+import 'repository/repositoryQuestions.dart';
 import 'dart:math';
 
 void main() {
@@ -125,60 +126,13 @@ class _BodyState extends State<Body> {
             ),
           ),
           const SizedBox(height: 15),
-          ...questions[currentQuestion].allOptions.map((option) =>
-              GestureDetector(
-                onTap: () {
-                  selectQuestion(option);
-                },
-                child: Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-                  margin:
-                      const EdgeInsets.symmetric(horizontal: 0, vertical: 8),
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    color: const Color(0xffffffff),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Row(
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 8, horizontal: 16),
-                        decoration: BoxDecoration(
-                          color: const Color(0xfffca311),
-                          borderRadius: BorderRadius.circular(100),
-                          boxShadow: const [
-                            BoxShadow(
-                              color: Colors.black26,
-                              offset: Offset(0, 2),
-                              blurRadius: 5,
-                            ),
-                          ],
-                        ),
-                        child: Text(
-                          String.fromCharCode(questions[currentQuestion]
-                                  .allOptions
-                                  .indexOf(option) +
-                              65),
-                          style: const TextStyle(
-                            color: Color(0xffffffff),
-                            fontSize: 20,
-                          ),
-                        ),
-                      ),
-                      const SizedBox(width: 40),
-                      Text(
-                        option,
-                        style: const TextStyle(
-                          color: Color(0xff2b2d42),
-                          fontSize: 14,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              )),
+          ...questions[currentQuestion].allOptions.map((option) => Option(
+              option: option,
+              isAnswered: statusQuestion == StatusQuestion.answered,
+              isSelected: option == optionSelected,
+              selectQuestion: selectQuestion,
+              index: String.fromCharCode(
+                  questions[currentQuestion].allOptions.indexOf(option) + 65))),
           const Spacer(),
           GestureDetector(
             onTap: () {
