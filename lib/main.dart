@@ -47,7 +47,7 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
-  final List<Question> questions = QuestionRepository().generate(5);
+  final List<Question> questions = QuestionRepository().generate(3);
   var currentQuestion = 0;
 
   @override
@@ -65,7 +65,7 @@ class _BodyState extends State<Body> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("Quiz: ${currentQuestion + 1}"),
+                Text("Quiz: ${currentQuestion + 1} / ${questions.length}"),
                 Row(
                   children: const [
                     Icon(
