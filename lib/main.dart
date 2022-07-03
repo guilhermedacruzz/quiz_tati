@@ -56,10 +56,10 @@ enum StatusQuestion { wainting, answered }
 enum StatusQuiz { running, complet, result }
 
 class _BodyState extends State<Body> {
-  final List<Question> questions = QuestionRepository().generate(3);
+  List<Question> questions = QuestionRepository().generate(3);
   var currentQuestion = 0;
   StatusQuestion statusQuestion = StatusQuestion.wainting;
-  StatusQuiz statusQuiz = StatusQuiz.result;
+  StatusQuiz statusQuiz = StatusQuiz.running;
   String optionSelected = "";
   int hits = 0;
   int mistakes = 0;
@@ -96,12 +96,25 @@ class _BodyState extends State<Body> {
     }
   }
 
+  void resetQuiz() {
+    setState(() {
+      questions = QuestionRepository().generate(3);
+      currentQuestion = 0;
+      statusQuestion = StatusQuestion.wainting;
+      statusQuiz = StatusQuiz.running;
+      optionSelected = "";
+      hits = 0;
+      mistakes = 0;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return statusQuiz == StatusQuiz.result
         ? ResultPage(
             hits: hits,
             mistakes: mistakes,
+            resetQuiz: resetQuiz,
           )
         : Container(
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 25),
