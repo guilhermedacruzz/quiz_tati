@@ -49,11 +49,13 @@ class _ResultPageState extends State<ResultPage> {
               height: 250,
               width: 250,
             ),
-            const Text("Parabéns!",
-                style: TextStyle(
-                  color: Color(0xfffca311),
-                  fontSize: 32,
-                )),
+            const Text(
+              "Parabéns!",
+              style: TextStyle(
+                color: Color(0xfffca311),
+                fontSize: 32,
+              ),
+            ),
             DefaultTextStyle(
               style: const TextStyle(
                 color: Color(0xffffffff),

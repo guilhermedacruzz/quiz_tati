@@ -20,7 +20,7 @@ class QuizBar extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text("Quiz: $current / $max"),
+          Text("Pergunta: $current / $max"),
           Row(
             children: [
               const Icon(

@@ -1,5 +1,4 @@
 import 'package:quiz_tati/data/data.dart';
-
 import '../models/question.dart';
 import '../data/generator.dart';
 
