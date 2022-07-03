@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 
 class QuizBar extends StatelessWidget {
+  final DateTime now = DateTime.now();
   final int current;
   final int max;
 
-  const QuizBar({Key? key, required this.current, required this.max }) : super(key: key);
+  QuizBar({Key? key, required this.current, required this.max})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,13 +20,15 @@ class QuizBar extends StatelessWidget {
         children: [
           Text("Quiz: $current / $max"),
           Row(
-            children: const [
-              Icon(
+            children: [
+              const Icon(
                 Icons.timer,
                 color: Color(0xffffffff),
               ),
-              SizedBox(width: 5),
-              Text("3:00 min"),
+              const SizedBox(width: 5),
+              Text(
+                '${now.hour}:${now.minute}:${now.second}',
+              ),
             ],
           )
         ],

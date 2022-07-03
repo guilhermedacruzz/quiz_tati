@@ -110,8 +110,8 @@ class _BodyState extends State<Body> {
           const SizedBox(height: 15),
           ...questions[currentQuestion].allOptions.map((option) => Option(
               option: option,
-              isAnswered: statusQuestion == StatusQuestion.answered,
               isSelected: option == optionSelected,
+              isCorrect: option == questions[currentQuestion].correct,    
               selectQuestion: selectQuestion,
               index: String.fromCharCode(
                   questions[currentQuestion].allOptions.indexOf(option) + 65))),
